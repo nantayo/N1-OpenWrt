@@ -1,0 +1,19 @@
+config system
+	option ttylogin '0'
+	option urandom_seed '0'
+	option hostname 'OpenWrt'
+	option zonename 'Asia/Shanghai'
+	option timezone 'CST-8'
+	option log_size '64'
+	option log_proto 'udp'
+	option conloglevel '4'
+	option cronloglevel '9'
+
+config timeserver 'ntp'
+	option enabled '1'
+	list server 'ntp1.aliyun.com'
+
+config led
+	option sysfs 'n1:white:status'
+	option trigger 'none'
+	option default '0'

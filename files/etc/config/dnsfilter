@@ -1,0 +1,9 @@
+config dnsfilter
+	option enable '1'
+	option block_ios '0'
+	option block_cnshort '0'
+	option safe_search '0'
+	option cron_mode '1'
+	option time_update '4'
+	option flash '1'
+	list url 'https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt'
