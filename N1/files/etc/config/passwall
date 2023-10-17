@@ -1,0 +1,86 @@
+config global
+	option enabled '0'
+	option tcp_node 'nil'
+	option udp_node 'nil'
+	option tcp_node_socks_port '1070'
+	option socks_enabled '0'
+	option filter_proxy_ipv6 '1'
+	option dns_mode 'udp'
+	option remote_dns '127.0.0.1:5335'
+	option acl_enable '0'
+	option when_chnroute_default_dns 'direct'
+	option tcp_proxy_mode 'chnroute'
+	option udp_proxy_mode 'disable'
+	option localhost_tcp_proxy_mode 'default'
+	option localhost_udp_proxy_mode 'default'
+	option close_log_tcp '1'
+	option close_log_udp '1'
+	option loglevel 'error'
+	option trojan_loglevel '4'
+	option advanced_log_feature '0'
+
+config global_other
+
+config global_subscribe
+	option filter_keyword_mode '1'
+	list filter_discard_list '时间'
+	list filter_discard_list '流量'
+	list filter_discard_list '免费'
+	list filter_discard_list '下载'
+	option ss_aead_type 'shadowsocks-rust'
+	option trojan_type 'xray'
+
+config global_delay
+	option auto_on '0'
+	option start_delay '5'
+	option start_daemon '1'
+
+config global_forwarding
+	option tcp_no_redir_ports 'disable'
+	option udp_no_redir_ports 'disable'
+	option tcp_proxy_drop_ports 'disable'
+	option udp_proxy_drop_ports '443'
+	option tcp_redir_ports '22,25,53,143,465,587,853,993,995,80,443'
+	option udp_redir_ports '1:65535'
+	option accept_icmp '0'
+	option use_nft '0'
+	option tcp_proxy_way 'tproxy'
+	option ipv6_tproxy '0'
+
+config global_xray
+	option sniffing '0'
+
+config global_singbox
+	option sniff_override_destination '0'
+	option geoip_path '/usr/share/singbox/geoip.db'
+	option geoip_url 'https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db'
+	option geosite_path '/usr/share/singbox/geosite.db'
+	option geosite_url 'https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db'
+
+config global_haproxy
+	option balancing_enable '1'
+	option console_port '1188'
+	option health_check_type 'passwall_logic'
+	option health_check_inter '60'
+
+config global_app
+	option brook_file '/usr/bin/brook'
+	option hysteria_file '/usr/bin/hysteria'
+	option chinadns_ng '/usr/bin/chinadns-ng'
+	option trojan_go_file '/usr/bin/trojan-go'
+	option xray_file '/usr/bin/xray'
+	option singbox_file '/usr/bin/sing-box'
+
+config global_rules
+	list gfwlist_url 'https://fastly.jsdelivr.net/gh/gfwlist/gfwlist/gfwlist.txt'
+	list chnroute_url 'https://fastly.jsdelivr.net/gh/soffchen/GeoIP2-CN@release/CN-ip-cidr.txt'
+	option gfwlist_update '1'
+	option chnroute_update '1'
+	option chnroute6_update '0'
+	option chnlist_update '0'
+	option geoip_update '0'
+	option geosite_update '0'
+	option auto_update '1'
+	option week_update '7'
+	option time_update '6'
+	option v2ray_location_asset '/usr/share/v2ray/'

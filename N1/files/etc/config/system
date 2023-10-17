@@ -1,0 +1,26 @@
+config imm_init
+	option ipv6 '1'
+	option lang '1'
+	option anon_mount '1'
+	option system_chn '1'
+
+config system
+	option ttylogin '0'
+	option urandom_seed '0'
+	option hostname 'ImmortalWrt'
+	option timezone 'CST-8'
+	option zonename 'Asia/Shanghai'
+	option log_size '64'
+	option log_proto 'udp'
+	option conloglevel '4'
+	option cronloglevel '9'
+
+config timeserver 'ntp'
+	option use_dhcp '0'
+	list server 'ntp.tencent.com'
+
+config led
+	option name 'default'
+	option sysfs 'n1:white:status'
+	option trigger 'none'
+	option default '0'

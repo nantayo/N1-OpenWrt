@@ -1,0 +1,16 @@
+config samba
+	option charset 'UTF-8'
+	option workgroup 'WORKGROUP'
+	option description 'Samba on OpenWRT'
+	option enable_extra_tuning '1'
+	option disable_async_io '1'
+	option disable_netbios '1'
+
+config sambashare
+	option name 'OpenWrt'
+	option path '/mnt/mmcblk2p4/Share'
+	option read_only 'no'
+	option force_root '1'
+	option guest_ok 'yes'
+	option create_mask '0666'
+	option dir_mask '0777'
