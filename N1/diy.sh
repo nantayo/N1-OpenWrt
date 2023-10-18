@@ -23,7 +23,7 @@ echo "iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE" >> package/network/c
 rm -rf feeds/luci/applications/luci-app-passwall feeds/packages/net/haproxy feeds/packages/net/v2ray-geodata
 
 # Add packages
-svn co https://github.com/nantayo/my-pkg/trunk package/my-pkg
+#svn co https://github.com/nantayo/my-pkg/trunk package/my-pkg
 svn co https://github.com/ophub/luci-app-amlogic/trunk package/amlogic
 git clone https://github.com/kenzok8/small-package package/small-package
 
