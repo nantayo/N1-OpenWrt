@@ -12,7 +12,7 @@ on:
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: openwrt-21.02
+  REPO_BRANCH: openwrt-23.05
   CONFIG_FILE: N1/.congfig-passwall2
   DIY_SH: N1/diy.sh
   FILES: N1/files
