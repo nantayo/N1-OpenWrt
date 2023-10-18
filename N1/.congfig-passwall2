@@ -22,7 +22,7 @@ CONFIG_PACKAGE_luci-app-amlogic=y
 CONFIG_PACKAGE_luci-app-dockerman=y
 CONFIG_PACKAGE_luci-app-fileassistant=y
 CONFIG_PACKAGE_luci-app-mosdns=y
-CONFIG_PACKAGE_luci-app-passwall=y
+#CONFIG_PACKAGE_luci-app-passwall=y
 CONFIG_PACKAGE_luci-app-samba4=y
 CONFIG_PACKAGE_luci-app-turboacc=n
 
@@ -96,3 +96,5 @@ CONFIG_PACKAGE_v2ray-geosite=y
 CONFIG_PACKAGE_v2dat=y
 
 
+
+CONFIG_PACKAGE_luci-theme-argon=y
