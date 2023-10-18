@@ -25,7 +25,11 @@ rm -rf feeds/luci/applications/luci-app-passwall feeds/packages/net/haproxy feed
 # Add packages
 #svn co https://github.com/nantayo/my-pkg/trunk package/my-pkg
 svn co https://github.com/ophub/luci-app-amlogic/trunk package/amlogic
-git clone https://github.com/kenzok8/small-package package/small-package
+#git clone https://github.com/kenzok8/small-package package/small-package
+
+
+src-clone  https://github.com/xiaorouji/openwrt-passwall-packages.git
+src-clone  https://github.com/xiaorouji/openwrt-passwall2.git
 
 
 git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
