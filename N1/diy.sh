@@ -28,6 +28,8 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk package/amlogic
 git clone https://github.com/kenzok8/small-package package/small-package
 
 
+git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 
 
 
