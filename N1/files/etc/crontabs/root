@@ -1,0 +1,2 @@
+0 4 * * * fstrim -a
+0 3 * * 1 reboot
