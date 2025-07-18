@@ -1,0 +1,33 @@
+name: Refresh Github Actions Cache
+
+on:
+  schedule:
+    - cron: '0 11 */6 * *'
+
+jobs:
+  refresh_cache:
+    runs-on: ubuntu-24.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Refresh ccache
+      uses: actions/cache@main
+      id: cache_ccache
+      with:
+        path: ${{ github.workspace }}/openwrt/.ccache
+        key: ccache-${{ env.week }}
+        restore-keys: ccache-
+
+    - name: Refresh dl
+      uses: actions/cache@main
+      id: cache_dl
+      with:
+        path: ${{ github.workspace }}/openwrt/dl
+        key: dl-${{ env.week }}
+        restore-keys: dl-
+
+    - name: Cache Hit Check
+      run: |
+        echo "CCACHE Cache hit: ${{ steps.cache_ccache.outputs.cache-hit }}"
+        echo "DL Cache hit: ${{ steps.cache_dl.outputs.cache-hit }}"
