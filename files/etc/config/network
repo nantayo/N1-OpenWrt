@@ -13,8 +13,8 @@ config interface 'lan'
 	option proto 'static'
 	option netmask '255.255.255.0'
 	option device 'eth0'
-	option ipaddr '192.168.2.2'
-	option gateway '192.168.2.1'
+	option ipaddr '192.168.50.100'
+	option gateway '192.168.50.1'
 	option delegate '0'
 
 config device
