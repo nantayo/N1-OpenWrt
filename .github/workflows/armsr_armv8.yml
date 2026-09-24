@@ -1,0 +1,91 @@
+name: Build ImmortalWrt-25.12 for armsr_armv8
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1,16 * *"
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: openwrt-25.12
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Initialize environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt-get -qq update > /dev/null
+        sudo -E apt-get -qq install -y $(curl -fsSL https://raw.githubusercontent.com/nantayo/My-Pkg/master/openwrt) > /dev/null
+        sudo -E apt-get -qq autoremove --purge > /dev/null
+        sudo -E apt-get -qq clean > /dev/null
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        git clone $REPO_URL -b $REPO_BRANCH --single-branch --depth=1 openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        echo "FILE_DATE=$(date +"%Y%m%d")" >> $GITHUB_ENV
+
+    - name: Update & Install feeds
+      working-directory: ./openwrt
+      run: |
+        ./scripts/feeds update -a
+        bash $GITHUB_WORKSPACE/armsr/armv8/diy/diy.sh
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+
+    - name: Load N1 custom config
+      run: |
+        rm -rf openwrt/files openwrt/.config
+        mv armsr/armv8/N1/files armsr/armv8/N1/.config openwrt/
+
+    - name: Download package
+      working-directory: ./openwrt
+      run: |
+        make defconfig
+        make download -j$(( $(nproc) * 2 ))
+
+    - name: Compile N1 firmware
+      working-directory: ./openwrt
+      run: |
+        make -j$(( $(nproc) + 1 )) || make -j1 V=s
+
+    - name: Package N1 firmware
+      uses: ophub/amlogic-s9xxx-openwrt@main
+      with:
+        openwrt_path: openwrt/bin/targets/armsr/armv8/*rootfs.tar.gz
+        openwrt_board: s905d
+        kernel_usage: flippy
+        openwrt_kernel: 6.12.y
+        openwrt_size: 256/1024
+        builder_name: nantayo
+
+    - name: Upload firmware to release
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: OpenWrt_${{ env.FILE_DATE }}
+        files: ${{ env.PACKAGED_OUTPUTPATH }}/*.img.gz
+        body: |
+          首次使用建议全新刷写
+          * 基本信息
+          IP: 192.168.2.2
+          账户: root
+          密码: password
+
+    - name: Delete old releases
+      uses: mgz0227/delete-older-releases@master
+      with:
+        keep_latest: 2
+        delete_tags : true
